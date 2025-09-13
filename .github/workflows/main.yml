@@ -9,16 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Add MSVC build tools to PATH
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
-      - name: Build DLL
-        run: cl /LD AudioDeviceSwitcher.cpp /Fe:AudioDeviceSwitcher.dll ole32.lib oleaut32.lib uuid.lib user32.lib /EHsc
+      - name: Build with MSBuild
+        run: msbuild AudioDeviceSwitcher.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: AudioDeviceSwitcher_x64_Release
-          path: AudioDeviceSwitcher.dll
+          path: x64/Release/AudioDeviceSwitcher.dll
