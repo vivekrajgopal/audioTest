@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Add MSVC build tools to PATH
         uses: ilammy/msvc-dev-cmd@v1
@@ -18,7 +18,7 @@ jobs:
         run: cl /LD AudioDeviceSwitcher.cpp /Fe:AudioDeviceSwitcher.dll ole32.lib oleaut32.lib uuid.lib user32.lib /EHsc
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AudioDeviceSwitcher_x64_Release
           path: AudioDeviceSwitcher.dll
